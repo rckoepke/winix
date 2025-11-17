@@ -199,7 +199,7 @@ class WinixDeviceWrapper:
             self._logger.debug("%s => set mode=auto", self._alias)
             await self._driver.auto()
 
-    async def async_plasmawave_on(self, force: bool = False) -> None:
+    async def async_plasmawave_on(self, force: bool = False) -> bool:
         """Turn on plasma wave."""
 
         if force or not self._plasma_on:
@@ -208,8 +208,10 @@ class WinixDeviceWrapper:
 
             self._logger.debug("%s => set plasmawave=on", self._alias)
             await self._driver.plasmawave_on()
+            return True
+        return False
 
-    async def async_plasmawave_off(self, force: bool = False) -> None:
+    async def async_plasmawave_off(self, force: bool = False) -> bool:
         """Turn off plasma wave."""
 
         if force or self._plasma_on:
@@ -218,6 +220,8 @@ class WinixDeviceWrapper:
 
             self._logger.debug("%s => set plasmawave=off", self._alias)
             await self._driver.plasmawave_off()
+            return True
+        return False
 
     @property
     def is_child_lock_on(self) -> bool:
