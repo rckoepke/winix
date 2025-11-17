@@ -38,6 +38,15 @@ SWITCH_DESCRIPTIONS: Final[tuple[WinixSwitchEntityDescription, ...]] = (
         on_fn=lambda device: device.async_child_lock_on(),
         off_fn=lambda device: device.async_child_lock_off(),
     ),
+    WinixSwitchEntityDescription(
+        key="plasmawave",
+        is_on=lambda device: device.is_plasma_on,
+        exists_fn=lambda device: True,  # Assumes all devices have Plasmawave
+        name="Plasmawave",
+        icon="mdi:waves",
+        on_fn=lambda device: device.async_plasmawave_on(),
+        off_fn=lambda device: device.async_plasmawave_off(),
+    ),
 )
 
 
