@@ -105,7 +105,7 @@ async def async_setup_entry(
 class WinixPurifier(WinixEntity, FanEntity):
     """Representation of a Winix Purifier entity."""
 
-    # https://developers.home-assistant.io/docs/core/entity/fan/
+    # [https://developers.home-assistant.io/docs/core/entity/fan/](https://developers.home-assistant.io/docs/core/entity/fan/)
     _attr_supported_features = (
         FanEntityFeature.PRESET_MODE
         | FanEntityFeature.SET_SPEED
@@ -223,10 +223,18 @@ class WinixPurifier(WinixEntity, FanEntity):
         # pylint: disable=unused-argument
         """Turn on the purifier."""
 
+        # Get the "speed" from the command, if it exists
+        speed = kwargs.get("speed")
+
         if percentage:
             await self.async_set_percentage(percentage)
-        if preset_mode:
+        elif preset_mode:
             await self.device_wrapper.async_set_preset_mode(preset_mode)
+        elif speed:
+            if speed not in self.speed_list:
+                LOGGER.error("'%s' is not a valid speed", speed)
+                return
+            await self.device_wrapper.async_set_speed(speed)
         else:
             await self.device_wrapper.async_turn_on()
 
