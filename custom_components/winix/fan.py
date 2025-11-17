@@ -105,7 +105,7 @@ async def async_setup_entry(
 class WinixPurifier(WinixEntity, FanEntity):
     """Representation of a Winix Purifier entity."""
 
-    # [https://developers.home-assistant.io/docs/core/entity/fan/](https://developers.home-assistant.io/docs/core/entity/fan/)
+    # https://developers.home-assistant.io/docs/core/entity/fan/
     _attr_supported_features = (
         FanEntityFeature.PRESET_MODE
         | FanEntityFeature.SET_SPEED
